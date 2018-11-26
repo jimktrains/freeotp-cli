@@ -33,9 +33,10 @@ for i in root.findall('./string'):
         for j in params['secret']:
             # Prepend a 0 if hex() would only return a single character.
             prefix = b''
-            if abs(j) < 16:
+            if j >= 0 and j < 16:
                 prefix = b'0'
-            s_hex += prefix + bytes(hex(j & 255)[2:], 'ascii')
+            b =  prefix + bytes(hex(j & 255)[2:], 'ascii')
+            s_hex += b
 
         # Convert the hex string to base32 encoding.
         s_bytes = base64.b16decode(s_hex, True)
